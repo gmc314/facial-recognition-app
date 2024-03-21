@@ -8,6 +8,10 @@ body {
   background: linear-gradient(to right, #ff512f, #f09819);
 }
 
+button {
+  cursor: pointer;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
