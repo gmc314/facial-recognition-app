@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
+import FaceDetection from './components/FaceDetection/FaceDetection';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import ParticlesBg from 'particles-bg'
@@ -18,9 +19,9 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    console.log("gg")
-
+    console.log("click")
   }
+  
   render() { 
     return (
       <div className="App">
@@ -28,7 +29,7 @@ class App extends Component {
         <Navigation />
         <Logo />
         <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
-        { /*<FaceRecognition />*/}
+        <FaceDetection />
       </div>
     );
   }
