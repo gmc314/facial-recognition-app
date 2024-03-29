@@ -17,13 +17,17 @@ class App extends Component {
     console.log(event.target.value)
   }
 
+  onButtonSubmit = () => {
+    console.log("gg")
+
+  }
   render() { 
     return (
       <div className="App">
         <ParticlesBg type='cobweb' bg={true} />
         <Navigation />
         <Logo />
-        <ImageLinkForm onInputChange={ this.onInputChange }/>
+        <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
         { /*<FaceRecognition />*/}
       </div>
     );
