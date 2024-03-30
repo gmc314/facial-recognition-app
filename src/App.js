@@ -8,7 +8,7 @@ import ParticlesBg from 'particles-bg';
 
 const initializeClarifaiAPI = (imageURL) => {
   const PAT = '';
-  const USER_ID = 'clarifai';       
+  const USER_ID = 'clarifai';
   const APP_ID = 'main';
   const IMAGE_URL = imageURL;
 
