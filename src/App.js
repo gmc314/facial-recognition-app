@@ -46,42 +46,31 @@ class App extends Component {
     this.state = {
       input: "",
       imageURL: "",
-      boundingBoxes: [], 
+      boundingBox: [{}], 
     }
   };
+
   calculateFaceLocation = (data) => {
     const image = document.getElementById("image")
     const width = Number(image.width)
-    const height = Number(image.height)
-    const regions = data.outputs[0].data.regions; 
-    const boxes = [];
-
-    regions.forEach(region => {
-        // Accessing and rounding the bounding box values
-        const boundingBox = region.region_info.bounding_box;
-        const topRow = boundingBox.top_row.toFixed(3);
-        const leftCol = boundingBox.left_col.toFixed(3);
-        const bottomRow = boundingBox.bottom_row.toFixed(3);
-        const rightCol = boundingBox.right_col.toFixed(3);
-
-        region.data.concepts.forEach(face => {
-            //console.log(`BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-            boxes.push({
-              topRow: height*topRow,
-              leftCol: width*leftCol,
-              bottomRow: (1 - bottomRow)*width,
-              rightCol: (1 - rightCol)*height
-            })
-        });
-    });
-    return boxes
-  }
-
-  displayBoundingBoxes = (boxes) => {
-    this.setState({boundingBoxes: boxes})
+    const height = Number(image.height) 
+    const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const topRow = boundingBox.top_row.toFixed(3);
+    const leftCol = boundingBox.left_col.toFixed(3);
+    const bottomRow = boundingBox.bottom_row.toFixed(3);
+    const rightCol = boundingBox.right_col.toFixed(3);
+    return {
+      topRow: height*topRow,
+      leftCol: width*leftCol,
+      bottomRow: width*(1 - bottomRow),
+      rightCol: height*(1 - rightCol)
+    }
   };
 
-
+  displayBoundingBoxes = (box) => {
+    this.setState({boundingBox: box});
+  };
+  
   onInputChange = (event) => {
     this.setState({input: event.target.value});
   };
@@ -98,14 +87,15 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL } = this.state 
+    const { imageURL, boundingBox} = this.state 
+    
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
         <Navigation />
         <Logo />
         <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
-        <FaceDetection imageURL={ imageURL }/>
+        <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
       </div>
     );
   }
