@@ -1,9 +1,11 @@
 import React from "react";
 
-const FaceDetection = () => {
+const FaceDetection = ({ imageURL }) => {
   return (
-    <div className="center"> 
-      <img width="200" alt="face-detection" src={'https://hips.hearstapps.com/hmg-prod/images/beethoven-600x600.jpg?resize=1200:*'} />
+    <div className="center ma"> 
+      <div className="mt2">
+        <img width="500px" height="auto" alt="" src={imageURL} />
+      </div>    
     </div> 
   );
 }
