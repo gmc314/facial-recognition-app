@@ -36,6 +36,7 @@ const initializeClarifaiAPI = (imageURL) => {
       },
       body: raw
   };
+
   return requestOptions
 };
 
@@ -45,8 +46,41 @@ class App extends Component {
     this.state = {
       input: "",
       imageURL: "",
+      boundingBoxes: [], 
     }
   };
+  calculateFaceLocation = (data) => {
+    const image = document.getElementById("image")
+    const width = Number(image.width)
+    const height = Number(image.height)
+    const regions = data.outputs[0].data.regions; 
+    const boxes = [];
+
+    regions.forEach(region => {
+        // Accessing and rounding the bounding box values
+        const boundingBox = region.region_info.bounding_box;
+        const topRow = boundingBox.top_row.toFixed(3);
+        const leftCol = boundingBox.left_col.toFixed(3);
+        const bottomRow = boundingBox.bottom_row.toFixed(3);
+        const rightCol = boundingBox.right_col.toFixed(3);
+
+        region.data.concepts.forEach(face => {
+            //console.log(`BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
+            boxes.push({
+              topRow: height*topRow,
+              leftCol: width*leftCol,
+              bottomRow: (1 - bottomRow)*width,
+              rightCol: (1 - rightCol)*height
+            })
+        });
+    });
+    return boxes
+  }
+
+  displayBoundingBoxes = (boxes) => {
+    this.setState({boundingBoxes: boxes})
+  };
+
 
   onInputChange = (event) => {
     this.setState({input: event.target.value});
@@ -57,14 +91,14 @@ class App extends Component {
     const MODEL_ID = 'face-detection';
     const requestOptions = initializeClarifaiAPI(this.state.input);
     
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
+    fetch(`https://api.clarifai.com/v2/models/${MODEL_ID}/outputs`, requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      .then(result => this.displayBoundingBoxes(this.calculateFaceLocation(result)))
+      .catch(error => console.log(error));
   };
 
   render() {
-    const { input, imageURL } = this.state 
+    const { imageURL } = this.state 
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
