@@ -3,6 +3,7 @@ import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import FaceDetection from './components/FaceDetection/FaceDetection';
 import Logo from './components/Logo/Logo';
+import SignIn from './components/SignIn/SignIn';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import ParticlesBg from 'particles-bg';
 
@@ -95,6 +96,7 @@ class App extends Component {
         <ParticlesBg type="cobweb" bg={true} />
         <Navigation />
         <Logo />
+        <SignIn />
         <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
         <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
       </div>
