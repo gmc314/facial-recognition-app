@@ -51,15 +51,17 @@ class App extends Component {
   };
 
   calculateFaceLocation = (data) => {
-    const image = document.getElementById("image")
-    const width = Number(image.width)
-    const height = Number(image.height) 
+    const image = document.getElementById("image");
+    const width = Number(image.width);
+    const height = Number(image.height);
     const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
     const topRow = boundingBox.top_row.toFixed(3);
     const leftCol = boundingBox.left_col.toFixed(3);
     const bottomRow = boundingBox.bottom_row.toFixed(3);
     const rightCol = boundingBox.right_col.toFixed(3);
+    //const prob = data.outputs[0].data.regions[0].data.concepts[0].value;
     return {
+      //probability: prob,
       topRow: height*topRow,
       leftCol: width*leftCol,
       bottomRow: width*(1 - bottomRow),
@@ -87,8 +89,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, boundingBox} = this.state 
-    
+    const { imageURL, boundingBox} = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />

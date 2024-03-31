@@ -2,7 +2,6 @@ import React from "react";
 import './FaceDetection.css';
 
 const FaceDetection = ({ imageURL, boundingBox }) => {
-  console.log( boundingBox )
   return (
     <div className="center ma"> 
       <div className="absolute mt2">
