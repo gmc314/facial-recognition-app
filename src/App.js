@@ -48,7 +48,8 @@ class App extends Component {
     this.state = {
       input: "",
       imageURL: "",
-      boundingBox: [{}], 
+      boundingBox: [{}],
+      route: "signin", 
     }
   };
 
@@ -90,17 +91,25 @@ class App extends Component {
       .catch(error => console.log(error));
   };
 
+  onRouteChange = (route) => {
+    this.setState({route: route})
+  }
+
   render() {
-    const { imageURL, boundingBox} = this.state;
+    const { imageURL, boundingBox, route} = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
-        <Navigation />
-        <Logo />
-        <SignIn />
-        <Rank name={ "Grant" } entries={ "5" }/>
-        <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
-        <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
+        <Navigation onRouteChange={ this.onRouteChange }/>
+        {route === 'signin' 
+        ? <SignIn onRouteChange={ this.onRouteChange }/>
+        : <div> 
+            <Logo />
+            <Rank name={ "Grant" } entries={ "5" }/>
+            <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
+            <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
+          </div>
+          }
       </div>
     );
   }
