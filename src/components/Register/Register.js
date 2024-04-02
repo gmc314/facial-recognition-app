@@ -10,15 +10,15 @@ const Register = ({ onRouteChange }) => {
               <legend className="f1 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" for="name">Name</label>
-                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="name"  id="name"/>
+                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="name" id="name"/>
               </div>
               <div className="mt3">  
                 <label className="db fw6 lh-copy f6" for="email-address">Email</label>
-                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address"/>
+                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address"/>
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" for="password">Password</label>
-                <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
+                <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password"/>
               </div>
             </fieldset>
             <div className="">

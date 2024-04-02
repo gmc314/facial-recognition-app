@@ -10,9 +10,7 @@ const FaceDetection = ({ imageURL, boundingBox }) => {
         </div>
       </div>
     </div> 
-  );
-}
-//
-        
+  ); 
+}   
         
 export default FaceDetection

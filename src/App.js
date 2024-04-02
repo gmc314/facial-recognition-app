@@ -94,7 +94,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     this.setState({route: route})
-  }
+  };
 
   render() {
     const { imageURL, boundingBox, route } = this.state;
