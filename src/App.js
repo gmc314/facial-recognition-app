@@ -3,6 +3,7 @@ import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import FaceDetection from './components/FaceDetection/FaceDetection';
 import Logo from './components/Logo/Logo';
+import Rank from './components/Rank/Rank';
 import SignIn from './components/SignIn/SignIn';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import ParticlesBg from 'particles-bg';
@@ -97,6 +98,7 @@ class App extends Component {
         <Navigation />
         <Logo />
         <SignIn />
+        <Rank name={ "Grant" } entries={ "5" }/>
         <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
         <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
       </div>
