@@ -39,7 +39,6 @@ const initializeClarifaiAPI = (imageURL) => {
       },
       body: raw
   };
-
   return requestOptions
 };
 
@@ -63,9 +62,7 @@ class App extends Component {
     const leftCol = boundingBox.left_col.toFixed(3);
     const bottomRow = boundingBox.bottom_row.toFixed(3);
     const rightCol = boundingBox.right_col.toFixed(3);
-    //const prob = data.outputs[0].data.regions[0].data.concepts[0].value;
     return {
-      //probability: prob,
       topRow: height*topRow,
       leftCol: width*leftCol,
       bottomRow: width*(1 - bottomRow),
@@ -102,11 +99,11 @@ class App extends Component {
       return (
         <div className="App">
           <ParticlesBg type="cobweb" bg={true} />
-          <Navigation onRouteChange={ this.onRouteChange }/>
+          <Navigation onRouteChange={this.onRouteChange}/>
           <Logo />
-          <Rank name={ "Grant" } entries={ "5" }/>
-          <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit }/>
-          <FaceDetection boundingBox={ boundingBox } imageURL={ imageURL }/>
+          <Rank name={"Grant"} entries={"5"}/>
+          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+          <FaceDetection boundingBox={boundingBox} imageURL={imageURL}/>
         </div>
       );
     } else if (route ===  "signin") {
