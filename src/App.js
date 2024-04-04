@@ -50,6 +50,7 @@ class App extends Component {
       imageURL: "",
       boundingBox: [{}],
       route: "signin", 
+      isSignedIn: false
     }
   };
 
@@ -94,34 +95,33 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, boundingBox, route } = this.state;
-    if (route === "home") {
-      return (
-        <div className="App">
-          <ParticlesBg type="cobweb" bg={true} />
-          <Navigation onRouteChange={this.onRouteChange}/>
-          <Logo />
-          <Rank name={"Grant"} entries={"5"}/>
-          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-          <FaceDetection boundingBox={boundingBox} imageURL={imageURL}/>
-        </div>
-      );
-    } else if (route ===  "signin") {
-      return (
-      <div>
+    const { imageURL, boundingBox, route, isSignedIn } = this.state;
+    return (
+      <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
-        <SignIn onRouteChange={ this.onRouteChange }/>
+        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+        { route === 'home'
+          ? <div>
+              <Logo />
+              <Rank
+                name={"Grant"}
+                entries={"1"}
+              />
+              <ImageLinkForm
+                onInputChange={this.onInputChange}
+                onButtonSubmit={this.onButtonSubmit}
+              />
+              <FaceDetection boundingBox={boundingBox} imageURL={imageURL} />
+            </div>
+          : (
+              route === 'signin'
+              ? <SignIn onRouteChange={this.onRouteChange}/>
+              : <Register onRouteChange={this.onRouteChange}/>
+          )
+        }
       </div>
-      );   
-    } else if (route ===  "register") {
-      return (
-      <div>
-        <ParticlesBg type="cobweb" bg={true} />
-        <Register onRouteChange={ this.onRouteChange }/>
-      </div>
-      );   
-    } 
+    );
   }
 }
 
-export default App;
+export default App; 
