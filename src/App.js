@@ -7,7 +7,7 @@ import Rank from './components/Rank/Rank';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import ParticlesBg from 'particles-bg';
+import ParticlesBg from 'particles-bg'; 
 
 const initializeClarifaiAPI = (imageURL) => {
   const PAT = '';
@@ -54,6 +54,12 @@ class App extends Component {
     }
   };
 
+  componentDidMount() {
+    fetch("http://localhost:3000")
+      .then(response => response.json())
+      .then(console.log)
+  }
+  
   calculateFaceLocation = (data) => {
     const image = document.getElementById("image");
     const width = Number(image.width);
