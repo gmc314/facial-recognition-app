@@ -48,19 +48,19 @@ class App extends Component {
     this.state = {
       input: "",
       imageURL: "",
-      boundingBox: [{}],
-      route: "signin", 
+      box: {},
+      route: "signin",
       isSignedIn: false,
       user: {
         id: "",
         name: "",
         email: "",
-        entries: "",
+        entries: 0,
         joined: ""
       }
     }
   };
-  
+
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -88,8 +88,8 @@ class App extends Component {
     }
   };
 
-  displayBoundingBoxes = (box) => {
-    this.setState({boundingBox: box});
+  displayBoundingBox = (box) => {
+    this.setState({box: box});
   };
   
   onInputChange = (event) => {
@@ -103,9 +103,26 @@ class App extends Component {
     
     fetch(`https://api.clarifai.com/v2/models/${MODEL_ID}/outputs`, requestOptions)
       .then(response => response.json())
-      .then(result => this.displayBoundingBoxes(this.calculateFaceLocation(result)))
-      .catch(error => console.log(error));
-  };
+      .then(response => {
+        console.log('hi', response)
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}))
+            })
+
+        }
+        this.displayBoundingBox(this.calculateFaceLocation(response))
+      })
+      .catch(err => console.log(err));
+  }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
@@ -117,7 +134,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, boundingBox, route, isSignedIn } = this.state;
+    const { imageURL, box, route, isSignedIn } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -133,17 +150,17 @@ class App extends Component {
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
               />
-              <FaceDetection boundingBox={boundingBox} imageURL={imageURL} />
+              <FaceDetection box={box} imageURL={imageURL} />
             </div>
           : (
-              route === 'signin'
-              ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-              : <Register onRouteChange={this.onRouteChange}/>
-          )
+             route === 'signin'
+             ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+            )
         }
       </div>
     );
   }
 }
 
-export default App; 
+export default App;
