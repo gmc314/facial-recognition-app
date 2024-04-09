@@ -120,7 +120,7 @@ class App extends Component {
         }
         this.displayBoundingBox(this.calculateFaceLocation(response))
       })
-      .catch(err => console.log(err));
+      .catch(console.log);
   }
 
   onRouteChange = (route) => {
