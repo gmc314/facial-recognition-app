@@ -133,7 +133,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, box, route, isSignedIn } = this.state;
+    const { imageURL, box, route, isSignedIn, user } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -142,8 +142,8 @@ class App extends Component {
           ? <div>
               <Logo />
               <Rank
-                name={this.state.user.name}
-                entries={this.state.user.entries}
+                name={user.name}
+                entries={user.entries}
               />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
