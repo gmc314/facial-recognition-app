@@ -42,6 +42,20 @@ const initializeClarifaiAPI = (imageURL) => {
   return requestOptions
 };
 
+const initialState = {
+  input: "",
+  imageURL: "",
+  box: {},
+  route: "signin",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: ""
+  }
+}
 class App extends Component {
   constructor() {
     super();
@@ -115,8 +129,8 @@ class App extends Component {
             .then(response => response.json())
             .then(count => {
               this.setState(Object.assign(this.state.user, {entries: count.entries}))
-            }
-          )
+            })
+            .catch(console.log)
         }
         this.displayBoundingBox(this.calculateFaceLocation(response))
       })
@@ -125,7 +139,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === "signout") {
-      this.setState({isSignedIn: false});
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({isSignedIn: true});
     } 
@@ -133,7 +147,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, box, route, isSignedIn } = this.state;
+    const { imageURL, box, route, isSignedIn, user } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -142,8 +156,8 @@ class App extends Component {
           ? <div>
               <Logo />
               <Rank
-                name={this.state.user.name}
-                entries={this.state.user.entries}
+                name={user.name}
+                entries={user.entries}
               />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
