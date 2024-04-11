@@ -114,7 +114,7 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count}))
+              this.setState(Object.assign(this.state.user, {entries: count.entries}))
             }
           )
         }
@@ -133,7 +133,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageURL, box, route, isSignedIn, user } = this.state;
+    const { imageURL, box, route, isSignedIn } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -142,8 +142,8 @@ class App extends Component {
           ? <div>
               <Logo />
               <Rank
-                name={user.name}
-                entries={user.entries}
+                name={this.state.user.name}
+                entries={this.state.user.entries}
               />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
