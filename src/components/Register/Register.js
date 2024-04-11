@@ -4,9 +4,9 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      name: ''
+      email: "",
+      password: "",
+      name: ""
     }
   }
 
@@ -23,9 +23,9 @@ class Register extends Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/register', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
+    fetch("http://localhost:3000/register", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
@@ -34,9 +34,9 @@ class Register extends Component {
     })
       .then(response => response.json())
       .then(user => {
-        if (user) {
+        if (user.id) {
           this.props.loadUser(user)
-          this.props.onRouteChange('home');
+          this.props.onRouteChange("home");
         }
       })
   }

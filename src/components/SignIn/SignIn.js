@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class SignIn extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class SignIn extends Component {
       .then(user => {
         if (user.id) {
           this.props.loadUser(user);
-          this.props.onRouteChange('home');
+          this.props.onRouteChange("home");
         }
       })    
     }
@@ -81,7 +81,7 @@ class SignIn extends Component {
             </div>
             <div className="lh-copy mt3">
               <p 
-                onClick={() => onRouteChange('register')} 
+                onClick={() => onRouteChange("register")} 
                 href="#0"
                 className="f6 link dim black db pointer"
               >Register</p>
