@@ -57,10 +57,12 @@ class App extends Component {
     const width = Number(image.width);
     const height = Number(image.height);
     const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+    
     const topRow = boundingBox.top_row.toFixed(3);
     const leftCol = boundingBox.left_col.toFixed(3);
     const bottomRow = boundingBox.bottom_row.toFixed(3);
     const rightCol = boundingBox.right_col.toFixed(3);
+    
     return {
       topRow: height*topRow,
       leftCol: width*leftCol,
@@ -79,11 +81,12 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageURL: this.state.input});
-    fetch('http://localhost:3000/imageurl', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
+    const { user, input } = this.state;
+    fetch("http://localhost:3000/imageurl", {
+        method: "post",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          input: this.state.input
+          input: input
         })
       })
       .then(response => response.json())
@@ -93,12 +96,12 @@ class App extends Component {
             method: "put",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-              id: this.state.user.id
+              id: user.id
             })
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(Object.assign(this.state.user, {entries: count}))
+              this.setState(Object.assign(user, {entries: count}))
             })
             .catch(console.log)
         }
