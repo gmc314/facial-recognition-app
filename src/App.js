@@ -7,6 +7,7 @@ import Rank from "./components/Rank/Rank.js";
 import SignIn from "./components/SignIn/SignIn.js";
 import Register from "./components/Register/Register.js";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm.js";
+//import ParticlesBg from "particles-bg"; 
 
 const initialState = {
   input: "",
@@ -122,6 +123,7 @@ class App extends Component {
     const { imageURL, box, route, isSignedIn, user } = this.state;
     return (
       <div className="App">
+        {/*<ParticlesBg type="cobweb" bg={true} />*/}
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         { route === "home"
           ? <div>
